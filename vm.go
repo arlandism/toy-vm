@@ -70,6 +70,7 @@ func compute(memory []byte) {
 		default:
 			panic(fmt.Sprintf("unexpected op code: %d. exiting as this program may not do what you want", op))
 		}
+		// most opcodes + operands are 3 bytes long, except in cases where we explicitly manipulate the pc or halt execution.
 		pc = pc + 3
 	}
 }
