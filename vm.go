@@ -68,7 +68,7 @@ func compute(memory []byte) {
 		case Halt:
 			return
 		default:
-			fmt.Println(op, "unsupported op code. skipping")
+			panic(fmt.Sprintf("unexpected op code: %d. exiting as this program may not do what you want", op))
 		}
 		pc = pc + 3
 	}
