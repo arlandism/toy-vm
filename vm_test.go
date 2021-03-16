@@ -149,6 +149,20 @@ func TestCompute(t *testing.T) {
 	}
 }
 
+func TestInvalidMemoryAccess(t *testing.T) {
+	asm := `
+store r1 8
+halt` // instruction boundary begins at 8
+	memory := make([]byte, 256)
+	copy(memory[8:], assemble(asm))
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fatalf("Invalid memory access didn't cause a panic")
+		}
+	}()
+	compute(memory)
+}
+
 // Given some assembly code and test cases, construct a program
 // according to the required memory structure, and run in each
 // case through the virtual machine

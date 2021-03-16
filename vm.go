@@ -39,7 +39,11 @@ func compute(memory []byte) {
 		case Load:
 			registers[memory[pc+1]] = memory[memory[pc+2]]
 		case Store:
-			memory[memory[pc+2]] = registers[memory[pc+1]]
+			addr := memory[pc+2]
+			if addr > 7 {
+				panic(fmt.Sprintf("invalid memory access %x", addr))
+			}
+			memory[addr] = registers[memory[pc+1]]
 		case Add:
 			registers[memory[pc+1]] = registers[memory[pc+1]] + registers[memory[pc+2]]
 		case Sub:
