@@ -61,14 +61,13 @@ func compute(memory []byte) {
 			// skip the normal pc increment
 			pc = memory[pc+1]
 			continue
+		case Beqz:
 			// byte immediately after pc is a register to check
 			// byte after register is the memory address to jump to if reg value is 0
-		case Beqz:
 			if registers[memory[pc+1]] == 0 {
 				imm := memory[pc+2]
 				pc = pc + imm
 			}
-			// end program
 		case Halt:
 			return
 		default:
